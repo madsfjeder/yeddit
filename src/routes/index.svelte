@@ -1,2 +1,14 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import SearchInput from "../components/ui/SearchInput.svelte";
+	import {token} from "../stores/stores";
+
+	let t;
+	token.subscribe(token => {
+		t = token;
+	})
+</script>
+
+<div class="p-52">
+	<SearchInput/>
+	<p>{t ?? ""}</p>
+</div>
