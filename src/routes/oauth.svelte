@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-	import {onMount} from "svelte";
-	import {setToken} from "../stores/setToken";
+	import { onMount } from "svelte";
+	import { setToken } from "../stores/setToken";
 	import { goto } from '$app/navigation';
 	type AuthResponse = {
 		access_token: string,
