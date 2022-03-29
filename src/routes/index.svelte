@@ -29,10 +29,20 @@
 	const addSubToList = (result) => {
 		subList = [...subList, result]
 	}
+	let padding = '52';
+	const handleRemovePadding = () => {
+		padding = "2";
+	}
 
 </script>
 
-<div class="p-52 justify-center">
+<div
+	class="p-{padding} justify-center">
+	<button class="rounded bg-amber-300 hover:shadow-lg p-2"
+		on:click={handleRemovePadding}
+	>
+		Padding
+	</button>
 	{#if t == null}
 		<div>
 			<a href={authUrl}>Auth here!</a>
