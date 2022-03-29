@@ -43,7 +43,7 @@
 	<input
 		bind:value={inputValue}
 		on:input={handleChange}
-		class="border border-gray-200 w-1/4 p-1"
+		class="border border-gray-200 w-full p-1"
 		placeholder="Search"
 		type="text"
 	>
