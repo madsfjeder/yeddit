@@ -1,14 +1,12 @@
 <script lang="ts">
 	import SearchInput from "../components/ui/SearchInput.svelte";
+	import VideoArea from "../components/ui/VideoArea.svelte";
 	import { token } from "../stores/stores";
 	import { onMount } from "svelte";
 	import { fade } from 'svelte/transition';
 	import {clickOutside} from '../helpers/clickOutside';
-	type AutocompleteResult = {
-		community_icon: string,
-		display_name: string,
-	}
-
+	import type { AutocompleteResult } from "../types/types";
+	import {generateVideoList} from "../helpers/generateVideoList";
 	const redirectUrl = 'http://localhost:3000/oauth';
 	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
 	let t;
@@ -29,10 +27,9 @@
 	const addSubToList = (result) => {
 		subList = [...subList, result]
 	}
-	let padding = '52';
-	const handleRemovePadding = () => {
-		padding = "2";
-	}
+
+
+
 
 </script>
 
@@ -45,12 +42,12 @@
 		<div class="flex space-x-4">
 			<div class="flex space-x-4">
 				<SearchInput
-						bind:inputValue={currentSearchTerm}
-						bind:autocompleteResults={autocomplete}
+					bind:inputValue={currentSearchTerm}
+					bind:autocompleteResults={autocomplete}
 				/>
 
 					<button
-						disabled={subList.length === 0}
+						on:click={() => generateVideoList(subList)}
 						class={`rounded ${subList.length === 0 ? 'bg-gray-200' : 'bg-amber-300'} hover:shadow-lg p-2`}
 					>
 						Generate
@@ -72,7 +69,8 @@
 		{#if autocomplete != null && autocomplete.length > 0}
 			<div
 				class="space-y-2 w-1/5 mt-4 border border-purple-500"
-				use:clickOutside on:click_outside={handleClickOutside}
+				use:clickOutside
+				on:click_outside={handleClickOutside}
 			>
 				{#each autocomplete as result}
 					<div
@@ -83,7 +81,6 @@
 					</div>
 				{/each}
 			</div>
-
 		{/if}
 	{/if}
 </div>

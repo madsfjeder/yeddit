@@ -1,11 +1,7 @@
 <script lang="ts">
-	import {onMount} from "svelte";
-	import {token} from "../../stores/stores";
-	type AutocompleteResult = {
-		community_icon: string,
-		display_name: string,
-	}
-
+	import { onMount } from "svelte";
+	import { token } from "../../stores/stores";
+	import type { AutocompleteResult } from "../../types/types";
 	export let inputValue = undefined;
 	export let autocompleteResults: AutocompleteResult[] = [];
 	let t;
@@ -15,7 +11,6 @@
 		})
 	});
 	const handleChange = async() => {
-		console.log(inputValue)
 		const res = await fetch(`https://oauth.reddit.com/api/subreddit_autocomplete_v2?query=${inputValue}`,
 			{
 				method:'GET',
