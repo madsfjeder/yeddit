@@ -36,49 +36,48 @@
 
 </script>
 
-<div
-	class="p-{padding} justify-center">
-	<button class="rounded bg-amber-300 hover:shadow-lg p-2"
-		on:click={handleRemovePadding}
-	>
-		Padding
-	</button>
+<div>
 	{#if t == null}
 		<div>
 			<a href={authUrl}>Auth here!</a>
 		</div>
 	{:else}
-		<div class="flex flex-row h-24 space-x-4">
-			{#each subList as sub}
-				<div
-					transition:fade="{{duration: 50 }}"
-					class="h-12 border bg-green-200 rounded p-2"
-				>
-					<p>{sub.display_name}</p>
-				</div>
-			{/each}
-		</div>
-		<div class="flex flex-row items-center space-x-4">
-			<SearchInput
-					bind:inputValue={currentSearchTerm}
-					bind:autocompleteResults={autocomplete}
-			/>
-			{#if subList.length > 0}
-				<button class="rounded bg-amber-300 hover:shadow-lg p-2">
-					Generate
-				</button>
-			{/if}
+		<div class="flex space-x-4">
+			<div class="flex space-x-4">
+				<SearchInput
+						bind:inputValue={currentSearchTerm}
+						bind:autocompleteResults={autocomplete}
+				/>
+
+					<button
+						disabled={subList.length === 0}
+						class={`rounded ${subList.length === 0 ? 'bg-gray-200' : 'bg-amber-300'} hover:shadow-lg p-2`}
+					>
+						Generate
+					</button>
+
+			</div>
+			<div class="flex space-x-4">
+				{#each subList as sub}
+					<div
+							transition:fade="{{duration: 50 }}"
+							class="h-12 border bg-green-200 rounded p-2"
+					>
+						<p>{sub.display_name}</p>
+					</div>
+				{/each}
+			</div>
 		</div>
 
 		{#if autocomplete != null && autocomplete.length > 0}
 			<div
-				class="space-y-2 mt-4"
+				class="space-y-2 w-1/5 mt-4 border border-purple-500"
 				use:clickOutside on:click_outside={handleClickOutside}
 			>
 				{#each autocomplete as result}
 					<div
 						on:click={() => addSubToList(result)}
-						class="p-2 border border-blue-300 rounded w-1/5 hover:shadow-lg hover:bg-blue-300 cursor-pointer"
+						class="p-2 border border-blue-300 rounded w-full hover:shadow-lg hover:bg-blue-300 cursor-pointer"
 					>
 						<p>{result.display_name}</p>
 					</div>
