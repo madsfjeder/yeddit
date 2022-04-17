@@ -1,26 +1,27 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { token } from "../../stores/stores";
-	import type { AutocompleteResult } from "../../types/types";
+	import { onMount } from 'svelte';
+	import { token } from '../../stores/stores';
+	import type { AutocompleteResult } from '../../types/types';
 	export let inputValue = undefined;
 	export let autocompleteResults: AutocompleteResult[] = [];
 	let t;
 	onMount(() => {
-		token.subscribe(token => {
+		token.subscribe((token) => {
 			t = token;
-		})
+		});
 	});
-	const handleChange = async() => {
-		const res = await fetch(`https://oauth.reddit.com/api/subreddit_autocomplete_v2?query=${inputValue}`,
+	const handleChange = async () => {
+		const res = await fetch(
+			`https://oauth.reddit.com/api/subreddit_autocomplete_v2?query=${inputValue}`,
 			{
-				method:'GET',
+				method: 'GET',
 				headers: {
-					'Content-Type':'application/x-www-form-urlencoded',
-					'Authorization': 'bearer ' + t
+					'Content-Type': 'application/x-www-form-urlencoded',
+					Authorization: 'bearer ' + t
 				}
 			}
-		)
-		const parsed = await res.json()
+		);
+		const parsed = await res.json();
 		const filtered = parsed.data.children.filter((e) => {
 			return e.data?.display_name && e.data.display_name.length > 0;
 		});
@@ -30,16 +31,14 @@
 				display_name: e.data.display_name
 			};
 		});
-		autocompleteResults = results
-	}
+		autocompleteResults = results;
+	};
 </script>
 
-<div>
-	<input
-		bind:value={inputValue}
-		on:input={handleChange}
-		class="border border-gray-200 w-full p-1"
-		placeholder="Search"
-		type="text"
-	>
-</div>
+<input
+	bind:value={inputValue}
+	on:input={handleChange}
+	class="w-full border border-gray-200 p-1"
+	placeholder="Search"
+	type="text"
+/>
