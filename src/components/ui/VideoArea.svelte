@@ -2,14 +2,13 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ArrowSmLeft, ArrowSmRight } from '@steeze-ui/heroicons';
 	import YouTube from 'svelte-youtube';
+	import YouTubeCustom from './YouTubeCustom.svelte';
 	export let links;
 	let currentVideoIndex = 0;
 	let player;
-	$: console.log(player);
 	const onReady = (event) => {
-		console.log(event.target);
-		if (event != null) {
-			event.detail.target.playVideo();
+		if (event != null && player != null) {
+			player.playVideo();
 		}
 	};
 </script>
@@ -24,15 +23,22 @@
 		<Icon src={ArrowSmLeft} class="fill-blue-700" />
 	</button>
 
-	<YouTube
+	<YouTubeCustom
 		bind:player
 		on:end={() => currentVideoIndex++}
 		on:ready={onReady}
 		videoId={links[currentVideoIndex]}
 		id={1}
 		class={''}
-		options={{}}
+		options={{
+			height: '390',
+			width: '640',
+			playerVars: {
+				autoplay: 1
+			}
+		}}
 	/>
+
 	<button
 		class="ml-4 h-14"
 		on:click={() => {
