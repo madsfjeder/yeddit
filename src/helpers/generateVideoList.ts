@@ -18,14 +18,15 @@ export const generateVideoList = async (subList: SubList) => {
 			}
 		);
 		const result = await res.json();
+		// CLEAN
 		const filteredResult = result.data.children.map((res) => {
 			if (res.data.media.type === 'youtube.com') {
 				const s = res.data.media_embed.content;
-				console.log(s);
 				const url = s
 					.match(/(https:\/\/www\.youtube\.com.*)/)[0]
 					.split('"');
-				return url[0];
+				const videoId = url[0].match(/(?<=embed\/)(.*?)(?=\?)/);
+				return videoId[0];
 			}
 		});
 		return filteredResult;
