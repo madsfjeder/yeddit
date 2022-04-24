@@ -1,7 +1,6 @@
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ArrowSmLeft, ArrowSmRight } from '@steeze-ui/heroicons';
-	import YouTube from 'svelte-youtube';
 	import YouTubeCustom from './YouTubeCustom.svelte';
 	export let links;
 	let currentVideoIndex = 0;

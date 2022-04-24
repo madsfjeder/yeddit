@@ -5,8 +5,10 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { clickOutside } from '../helpers/clickOutside';
-	import type { AutocompleteResult } from '../types/types';
+	import type { AutocompleteResult, SubList } from '../types/types';
 	import { generateVideoList } from '../helpers/generateVideoList';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Trash } from '@steeze-ui/heroicons';
 	const redirectUrl = 'http://localhost:3000/oauth';
 	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
 	let t;
@@ -30,6 +32,12 @@
 	let links = [];
 	const handleGenerateList = async () => {
 		links = await generateVideoList(subList);
+	};
+
+	const handleRemoveSub = (inputSub: SubList[number]) => {
+		subList = subList.filter(
+			(sub) => sub.display_name !== inputSub.display_name
+		);
 	};
 </script>
 
@@ -79,9 +87,19 @@
 				{#each subList as sub}
 					<div
 						transition:fade={{ duration: 50 }}
-						class="h-12 mx-2 rounded p-2 border border-blue-200"
+						class="h-12 mx-2 rounded p-3 border border-blue-200 flex align-middle space-x-1"
 					>
-						<p>{sub.display_name}</p>
+						<p
+							class="m-0 leading-tight text-md align-middle text-center"
+						>
+							{sub.display_name}
+						</p>
+						<div
+							class="w-8 cursor-pointer"
+							on:click={() => handleRemoveSub(sub)}
+						>
+							<Icon src={Trash} class="fill-red-200" />
+						</div>
 					</div>
 				{/each}
 			</div>
