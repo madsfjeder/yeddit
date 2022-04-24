@@ -4,6 +4,8 @@
 	import { token } from '../stores/stores';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { spring, tweened } from 'svelte/motion';
+	import { quartInOut } from 'svelte/easing';
 	import { clickOutside } from '../helpers/clickOutside';
 	import type { AutocompleteResult, SubList } from '../types/types';
 	import { generateVideoList } from '../helpers/generateVideoList';
@@ -16,6 +18,8 @@
 	let autocomplete: AutocompleteResult[];
 	let subList: AutocompleteResult[] = [];
 
+	const width = spring(100);
+
 	onMount(() => {
 		token.subscribe((token) => {
 			t = token;
@@ -26,8 +30,16 @@
 		autocomplete = [];
 	};
 
-	const addSubToList = (result) => {
-		subList = [...subList, result];
+	const addSubToList = (result: SubList[number]) => {
+		const resultAlreadyInList = subList.find(
+			(sub) => sub.display_name === result.display_name
+		);
+		if (resultAlreadyInList != null) {
+			console.log(resultAlreadyInList);
+			width.set(200);
+		} else {
+			subList = [...subList, result];
+		}
 	};
 	let links = [];
 	const handleGenerateList = async () => {
@@ -39,6 +51,8 @@
 			(sub) => sub.display_name !== inputSub.display_name
 		);
 	};
+
+	$: console.log($width);
 </script>
 
 <div class="max-h-full">
@@ -87,7 +101,7 @@
 				{#each subList as sub}
 					<div
 						transition:fade={{ duration: 50 }}
-						class="h-12 mx-2 rounded p-3 border border-blue-200 flex align-middle space-x-1"
+						class={`transform h-12 mx-2 rounded p-3 border border-blue-200 flex align-middle space-x-1`}
 					>
 						<p
 							class="m-0 leading-tight text-md align-middle text-center"
