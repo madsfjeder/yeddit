@@ -101,7 +101,8 @@
 				{#each subList as sub}
 					<div
 						transition:fade={{ duration: 50 }}
-						class={`transform h-12 mx-2 rounded p-3 border border-blue-200 flex align-middle space-x-1`}
+						style={`width: ${$width}px`}
+						class={`h-12 mx-2 rounded p-3 border border-blue-200 flex align-middle space-x-1`}
 					>
 						<p
 							class="m-0 leading-tight text-md align-middle text-center"
