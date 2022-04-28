@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { token } from '../../stores/stores';
-	import type { AutocompleteResult } from '../../types/types';
+	import type { Sub } from '../../types/types';
 	export let inputValue = undefined;
-	export let autocompleteResults: AutocompleteResult[] = [];
+	export let autocompleteResults: Sub[] = [];
 	let t;
 	onMount(() => {
 		token.subscribe((token) => {
