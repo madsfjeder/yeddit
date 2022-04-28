@@ -1,6 +1,7 @@
-export type AutocompleteResult = {
-	community_icon: string,
-	display_name: string,
-}
+export type Sub = {
+	community_icon: string;
+	display_name: string;
+	animate: boolean;
+};
 
-export type SubList = AutocompleteResult[]
+export type SubList = Sub[];
