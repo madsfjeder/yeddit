@@ -17,6 +17,10 @@
 
 	onMount(() => {
 		token.subscribe((token) => {
+			const localToken = localStorage.getItem('token');
+			if (localToken) {
+				t = localToken;
+			}
 			t = token;
 		});
 	});
