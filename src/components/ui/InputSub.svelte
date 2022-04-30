@@ -7,6 +7,7 @@
 
 	export let handleRemoveSub;
 	export let sub: Sub;
+
 	const scale = spring(1);
 	$: if (sub != null && sub.animate) {
 		scale.set(1.3);
