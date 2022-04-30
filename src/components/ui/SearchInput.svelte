@@ -6,9 +6,11 @@
 	export let autocompleteResults: Sub[] = [];
 	let t;
 	onMount(() => {
-		token.subscribe((token) => {
+		const token = localStorage.getItem('token');
+		if (token != null) {
 			t = token;
-		});
+		} else {
+		}
 	});
 	const handleChange = async () => {
 		const res = await fetch(
