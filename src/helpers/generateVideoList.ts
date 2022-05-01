@@ -29,6 +29,7 @@ export const generateVideoList = async (subList: SubList) => {
 				}
 			);
 			const result = await res.json();
+			console.log(result);
 			const filteredResult = result.data.children.map((res: any) => {
 				if (res?.data?.media?.type === 'youtube.com') {
 					let content: VideoLink;

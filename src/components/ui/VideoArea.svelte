@@ -27,7 +27,7 @@
 				>
 					<Icon src={ArrowSmLeft} class="fill-blue-700" />
 				</button>
-				<div>
+				<div class="flex-grow">
 					<h1 class="font-bold">
 						{currentVideo.title}
 					</h1>
@@ -71,7 +71,7 @@
 			/>
 		</div>
 	</div>
-	<div class="h-[36rem] w-1/4 overflow-y-scroll">
+	<div class="flex h-[36rem] w-1/4 flex-col items-end overflow-y-scroll">
 		{#each links as video, index}
 			<VideoPreview
 				subName={video.subreddit}
