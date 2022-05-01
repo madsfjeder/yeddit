@@ -1,5 +1,4 @@
 <script>
-	export let duration;
 	export let subName;
 	export let thumbnailUrl;
 	export let index;
