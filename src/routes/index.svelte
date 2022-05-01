@@ -64,7 +64,6 @@
 						bind:inputValue={currentSearchTerm}
 						bind:autocompleteResults={autocomplete}
 					/>
-
 					<button
 						on:click={handleGenerateList}
 						class={`rounded ${
@@ -93,7 +92,7 @@
 					</div>
 				{/if}
 			</div>
-			<div class="max-w-3/5 flex h-full max-h-full w-3/5 flex-wrap">
+			<div class="h-ful flex w-3/5 flex-wrap">
 				{#each subList as sub}
 					<InputSub {sub} {handleRemoveSub} />
 				{/each}

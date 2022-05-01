@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { token } from '../../stores/stores';
 	import type { Sub } from '../../types/types';
 	export let inputValue = undefined;
 	export let autocompleteResults: Sub[] = [];
@@ -19,6 +18,7 @@
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
+					'Access-Control-Allow-Origin': '*',
 					Authorization: 'bearer ' + t
 				}
 			}
