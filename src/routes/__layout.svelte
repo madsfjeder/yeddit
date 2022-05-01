@@ -1,11 +1,10 @@
 <script>
-	import "../app.css";
+	import '../app.css';
 </script>
 
-<div class="w-full min-h-screen h-full">
-	<div class="m-5 p-4 h-[32rem]">
-		<slot/>
+<div class="h-full w-full">
+	<div class="m-5 h-[32rem] p-4">
+		<slot />
 	</div>
-	<div class="p-4 flex justify-center w-full h-14 fixed bottom-0">
-	</div>
+	<div class="fixed bottom-0 flex h-14 w-full justify-center p-4" />
 </div>

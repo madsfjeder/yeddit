@@ -8,6 +8,7 @@
 	import InputSub from '../components/ui/InputSub.svelte';
 	import LoadingSpinner from '../components/ui/LoadingSpinner.svelte';
 	import { getToken } from '../helpers/authenticationHandlers';
+	import AutoCompleteResults from '../components/ui/AutoCompleteResults.svelte';
 
 	const redirectUrl = 'http://localhost:3000/oauth';
 	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
@@ -15,6 +16,8 @@
 	let currentSearchTerm;
 	let autocomplete: Sub[];
 	let subList: Sub[] = [];
+	let inputFocus = false;
+	let keyboardNavigation = false;
 
 	onMount(async () => {
 		token = await getToken();
@@ -45,6 +48,37 @@
 			(sub) => sub.display_name !== inputSub.display_name
 		);
 	};
+
+	const navigateList = (direction: 'up' | 'down') => {
+		let idx = autocomplete.findIndex((e) => {
+			return e.focused === true;
+		});
+		if (idx === -1) {
+			idx = 0;
+		}
+		if (direction === 'up' && idx === 0) {
+			autocomplete[idx].focused = false;
+			inputFocus = true;
+			keyboardNavigation = false;
+			autocomplete = [...autocomplete];
+		} else if (
+			direction === 'up' &&
+			idx - 1 >= 0 &&
+			autocomplete[idx - 1] != null
+		) {
+			autocomplete[idx].focused = false;
+			autocomplete[idx - 1].focused = true;
+			autocomplete = [...autocomplete];
+		} else if (
+			direction === 'down' &&
+			idx + 1 < autocomplete.length &&
+			autocomplete[idx + 1] != null
+		) {
+			autocomplete[idx].focused = false;
+			autocomplete[idx + 1].focused = true;
+			autocomplete = [...autocomplete];
+		}
+	};
 </script>
 
 <div class="max-h-full">
@@ -63,6 +97,8 @@
 					<SearchInput
 						bind:inputValue={currentSearchTerm}
 						bind:autocompleteResults={autocomplete}
+						bind:inputFocus
+						bind:keyboardNavigation
 					/>
 					<button
 						on:click={handleGenerateList}
@@ -77,17 +113,16 @@
 				</div>
 				{#if autocomplete != null && autocomplete.length > 0}
 					<div
-						class="mt-4 w-3/6 space-y-2"
+						class="z-50 mt-4 w-3/6 space-y-2"
 						use:clickOutside
 						on:click_outside={handleClickOutside}
 					>
 						{#each autocomplete as result}
-							<div
-								on:click={() => addSubToList(result)}
-								class="w-full cursor-pointer rounded border border-blue-200 p-2 hover:bg-blue-300 hover:shadow-lg"
-							>
-								<p>{result.display_name}</p>
-							</div>
+							<AutoCompleteResults
+								{addSubToList}
+								{result}
+								{navigateList}
+							/>
 						{/each}
 					</div>
 				{/if}
