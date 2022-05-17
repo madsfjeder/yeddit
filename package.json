@@ -9,17 +9,20 @@
     "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --ignore-path .gitignore .",
+    "test": "vitest"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "@testing-library/svelte": "^3.1.1",
     "@types/lodash.shuffle": "^4.2.7",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "autoprefixer": "^10.4.4",
     "eslint": "^7.32.0",
     "eslint-plugin-svelte3": "^3.4.1",
+    "jsdom": "^19.0.0",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
     "prettier-plugin-tailwindcss": "^0.1.8",
@@ -28,7 +31,9 @@
     "svelte-preprocess": "^4.10.1",
     "tailwindcss": "^3.0.23",
     "tslib": "^2.3.1",
-    "typescript": "~4.6.2"
+    "typescript": "~4.6.2",
+    "vitest": "^0.12.6",
+    "vitest-svelte-kit": "^0.0.6"
   },
   "type": "module",
   "dependencies": {
