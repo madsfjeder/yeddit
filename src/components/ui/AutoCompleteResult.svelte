@@ -21,7 +21,7 @@
 	bind:this={btn}
 	on:click={() => addSubToList(result)}
 	on:keydown={handleKeyPress}
-	class="w-full cursor-pointer rounded border border-blue-200 p-2 hover:bg-blue-300 hover:shadow-lg focus:bg-blue-500 focus:text-white"
+	class="w-full cursor-pointer rounded border border-blue-200 bg-white p-2 hover:bg-blue-300 hover:shadow-lg focus:bg-blue-500 focus:text-white"
 >
 	{result.display_name}
 </button>
