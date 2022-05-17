@@ -3,11 +3,8 @@
 	import { ArrowSmLeft, ArrowSmRight } from '@steeze-ui/heroicons';
 	import YouTubeCustom from './YouTubeCustom.svelte';
 	import type { VideoLink } from '../../helpers/generateVideoList';
-	import { flip } from 'svelte/animate';
-	import { quintOut } from 'svelte/easing';
-	import VideoPreview from './VideoPreview.svelte';
-	import Toggle from './Toggle.svelte';
 	import shuffle from 'lodash.shuffle';
+	import VideoList from './VideoList.svelte';
 
 	export let videoLinkProps: VideoLink[];
 	$: unshuffledList = [...videoLinkProps];
@@ -28,6 +25,10 @@
 		/*if (event != null && player != null) {
 			player.playVideo();
 		}*/
+	};
+
+	const setLinkList = (newList: VideoLink[]) => {
+		links = newList;
 	};
 </script>
 
@@ -87,26 +88,5 @@
 			/>
 		</div>
 	</div>
-	<div class="flex h-[36rem] w-1/4 flex-col items-end">
-		<div class="m-3 mr-5 flex space-x-2 align-middle">
-			<h3 class="text-sm font-light text-gray-600">Shuffle</h3>
-			<Toggle bind:toggled={shuffleToggled} />
-		</div>
-
-		<div class="flex flex-col items-end overflow-y-scroll">
-			{#each links as video, index (video)}
-				<div animate:flip={{ duration: 500, easing: quintOut }}>
-					<VideoPreview
-						subName={video.subreddit}
-						{index}
-						playClicked={(index) => {
-							currentVideoIndex = index;
-						}}
-						title={video.title}
-						thumbnailUrl={video.thumbnail}
-					/>
-				</div>
-			{/each}
-		</div>
-	</div>
+	<VideoList {links} bind:shuffleToggled {currentVideoIndex} {setLinkList} />
 </div>
