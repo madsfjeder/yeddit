@@ -16,8 +16,6 @@
 		if (inputInstance != null) {
 			inputInstance.focus();
 			inputFocus = false;
-		} else {
-			console.log('Input focus but no instance');
 		}
 	}
 

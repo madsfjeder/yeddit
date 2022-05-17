@@ -36,6 +36,10 @@
 			subList = [...subList];
 		} else {
 			subList = [...subList, { ...result, animate: false }];
+			currentSearchTerm = '';
+			autocomplete = [];
+			inputFocus = true;
+			keyboardNavigation = false;
 		}
 	};
 	let links = [];
@@ -135,6 +139,6 @@
 		</div>
 	{/if}
 	{#if links.length > 0}
-		<VideoArea {links} />
+		<VideoArea videoLinkProps={links} />
 	{/if}
 </div>

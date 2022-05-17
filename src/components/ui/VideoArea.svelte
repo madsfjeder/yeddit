@@ -8,22 +8,26 @@
 	import VideoPreview from './VideoPreview.svelte';
 	import Toggle from './Toggle.svelte';
 	import shuffle from 'lodash.shuffle';
-	export let links: VideoLink[];
+
+	export let videoLinkProps: VideoLink[];
+	$: unshuffledList = [...videoLinkProps];
+	$: links = [...videoLinkProps];
+
 	let shuffleToggled = false;
 	let currentVideoIndex = 0;
-	$: currentVideo = links[currentVideoIndex];
+	$: currentVideo = videoLinkProps[currentVideoIndex];
+
 	$: if (shuffleToggled) {
-		shuffleList();
+		links = shuffle(videoLinkProps);
+	} else {
+		links = unshuffledList;
 	}
+
 	let player;
 	const onReady = (event) => {
 		/*if (event != null && player != null) {
 			player.playVideo();
 		}*/
-	};
-	const shuffleList = () => {
-		links = shuffle(links);
-		console.log("What's happening");
 	};
 </script>
 
@@ -84,8 +88,8 @@
 		</div>
 	</div>
 	<div class="flex h-[36rem] w-1/4 flex-col items-end">
-		<div class="m-3 mr-5 flex space-x-3 rounded-md bg-gray-50 p-4">
-			<h1>Shuffle</h1>
+		<div class="m-3 mr-5 flex space-x-2 align-middle">
+			<h3 class="text-sm font-light text-gray-600">Shuffle</h3>
 			<Toggle bind:toggled={shuffleToggled} />
 		</div>
 
