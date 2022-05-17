@@ -1,5 +1,5 @@
-<script>
-	export let result;
+<script lang="ts">
+	export let result: { display_name: string; focused: boolean };
 	export let addSubToList;
 	export let btn;
 	export let navigateList;
