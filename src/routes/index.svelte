@@ -8,7 +8,7 @@
 	import InputSub from '../components/ui/InputSub.svelte';
 	import LoadingSpinner from '../components/ui/LoadingSpinner.svelte';
 	import { getToken } from '../helpers/authenticationHandlers';
-	import AutoCompleteResults from '../components/ui/AutoCompleteResult.svelte';
+	import AutoCompleteResult from '../components/ui/AutoCompleteResult.svelte';
 
 	const redirectUrl = 'http://localhost:3000/oauth';
 	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
@@ -122,7 +122,7 @@
 						on:click_outside={handleClickOutside}
 					>
 						{#each autocomplete as result}
-							<AutoCompleteResults
+							<AutoCompleteResult
 								{addSubToList}
 								{result}
 								{navigateList}
