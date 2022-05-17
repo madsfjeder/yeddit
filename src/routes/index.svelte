@@ -8,7 +8,7 @@
 	import InputSub from '../components/ui/InputSub.svelte';
 	import LoadingSpinner from '../components/ui/LoadingSpinner.svelte';
 	import { getToken } from '../helpers/authenticationHandlers';
-	import AutoCompleteResults from '../components/ui/AutoCompleteResults.svelte';
+	import AutoCompleteResults from '../components/ui/AutoCompleteResult.svelte';
 
 	const redirectUrl = 'http://localhost:3000/oauth';
 	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
@@ -96,7 +96,7 @@
 	{/if}
 	{#if token != null}
 		<div class="flex max-h-full w-full">
-			<div class="flex w-2/5 flex-col">
+			<div class="relative flex w-2/5 flex-col">
 				<div class="flex h-12 flex-row space-x-4 align-middle">
 					<SearchInput
 						bind:inputValue={currentSearchTerm}
@@ -117,7 +117,7 @@
 				</div>
 				{#if autocomplete != null && autocomplete.length > 0}
 					<div
-						class="z-50 mt-4 w-3/6 space-y-2"
+						class="absolute top-10 z-50 mt-4 w-3/6 space-y-2 rounded-md bg-white"
 						use:clickOutside
 						on:click_outside={handleClickOutside}
 					>
