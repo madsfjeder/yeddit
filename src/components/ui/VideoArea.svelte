@@ -22,7 +22,6 @@
 
 	let player;
 	const onReady = (event) => {
-		console.log('Toggled: ', autoplay);
 		if (event != null && player != null && autoplay) {
 			player.playVideo();
 		}
