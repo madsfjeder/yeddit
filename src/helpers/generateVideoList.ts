@@ -35,7 +35,7 @@ export const generateVideoList = async (subList: SubList) => {
 					const s = res?.data?.media_embed?.content;
 					if (s != null) {
 						const id = s.match(
-							/src="https:\/\/www\.youtube\.com\/embed\/([\w]*)/
+							/src="https:\/\/www\.youtube\.com\/embed\/([\w-]*)/
 						);
 						content = {
 							id: id[1] ?? null,
