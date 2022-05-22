@@ -61,6 +61,7 @@
 			>
 				<VideoPreview
 					subName={video.subreddit}
+					firstInList={currentVideoIndex === index}
 					{index}
 					playClicked={(index) => {
 						currentVideoIndex = index;
