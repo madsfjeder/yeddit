@@ -16,7 +16,9 @@
 	$: currentVideo = links[currentVideoIndex];
 	$: if (shuffleToggled) {
 		links = shuffle(videoLinkProps);
+		currentVideoIndex = 0;
 	} else {
+		currentVideoIndex = 0;
 		links = unshuffledList;
 	}
 

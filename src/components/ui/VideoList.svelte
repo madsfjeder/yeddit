@@ -4,14 +4,26 @@
 	import { flip } from 'svelte/animate';
 	import { quintOut } from 'svelte/easing';
 	import type { VideoLink } from '../../helpers/generateVideoList';
-
+	import throttle from 'lodash.throttle';
 	export let links: VideoLink[];
 	export let currentVideoIndex: number;
 	export let shuffleToggled: boolean;
 	export let autoplay: boolean;
 	export let setLinkList: (linkList: VideoLink[]) => void;
+	let videoListContainer;
 
 	let hovering = false;
+	let beingScrolled = false;
+
+	$: if (shuffleToggled || !shuffleToggled) {
+		if (videoListContainer != null) {
+			videoListContainer.children[1].scrollIntoView({
+				inline: 'start',
+				block: 'start',
+				behavior: 'smooth'
+			});
+		}
+	}
 
 	const drop = (event, target) => {
 		event.dataTransfer.dropEffect = 'move';
@@ -36,6 +48,15 @@
 		const start = i;
 		event.dataTransfer.setData('text/plain', start);
 	};
+
+	const throttledDisableScroll = throttle(() => {
+		beingScrolled = true;
+	}, 50);
+
+	const handleScroll = () => {
+		throttledDisableScroll();
+		beingScrolled = false;
+	};
 </script>
 
 <div class="flex h-[36rem] w-1/4 flex-col items-end">
@@ -46,7 +67,11 @@
 		<Toggle bind:toggled={shuffleToggled} />
 	</div>
 
-	<div class="flex flex-col items-end overflow-y-scroll">
+	<div
+		bind:this={videoListContainer}
+		class="flex flex-col items-end overflow-y-scroll"
+		on:scroll={handleScroll}
+	>
 		{#each links as video, index (video.title)}
 			<div
 				animate:flip={{ duration: 150, easing: quintOut }}
@@ -60,8 +85,10 @@
 				} rounded-md`}
 			>
 				<VideoPreview
+					{beingScrolled}
 					subName={video.subreddit}
-					firstInList={currentVideoIndex === index}
+					firstInList={currentVideoIndex + 1 === index}
+					playing={currentVideoIndex === index}
 					{index}
 					playClicked={(index) => {
 						currentVideoIndex = index;
