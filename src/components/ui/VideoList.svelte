@@ -8,6 +8,7 @@
 	export let links: VideoLink[];
 	export let currentVideoIndex: number;
 	export let shuffleToggled: boolean;
+	export let autoplay: boolean;
 	export let setLinkList: (linkList: VideoLink[]) => void;
 
 	let hovering = false;
@@ -39,6 +40,8 @@
 
 <div class="flex h-[36rem] w-1/4 flex-col items-end">
 	<div class="m-3 mr-5 flex space-x-2 align-middle">
+		<h3 class="text-sm font-light text-gray-600">Autoplay</h3>
+		<Toggle bind:toggled={autoplay} />
 		<h3 class="text-sm font-light text-gray-600">Shuffle</h3>
 		<Toggle bind:toggled={shuffleToggled} />
 	</div>

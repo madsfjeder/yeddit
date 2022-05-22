@@ -11,9 +11,9 @@
 	$: links = [...videoLinkProps];
 
 	let shuffleToggled = false;
+	let autoplay = false;
 	let currentVideoIndex = 0;
-	$: currentVideo = videoLinkProps[currentVideoIndex];
-
+	$: currentVideo = links[currentVideoIndex];
 	$: if (shuffleToggled) {
 		links = shuffle(videoLinkProps);
 	} else {
@@ -22,9 +22,10 @@
 
 	let player;
 	const onReady = (event) => {
-		/*if (event != null && player != null) {
+		console.log('Toggled: ', autoplay);
+		if (event != null && player != null && autoplay) {
 			player.playVideo();
-		}*/
+		}
 	};
 
 	const setLinkList = (newList: VideoLink[]) => {
@@ -82,11 +83,17 @@
 					height: '390',
 					width: '780',
 					playerVars: {
-						autoplay: 0
+						autoplay: autoplay ? 1 : 0
 					}
 				}}
 			/>
 		</div>
 	</div>
-	<VideoList {links} bind:shuffleToggled {currentVideoIndex} {setLinkList} />
+	<VideoList
+		{links}
+		bind:shuffleToggled
+		bind:currentVideoIndex
+		bind:autoplay
+		{setLinkList}
+	/>
 </div>
