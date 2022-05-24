@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { faPlay } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import debounce from 'lodash.debounce';
 	export let subName: string;
 	export let thumbnailUrl: string;
 	export let index: number;
@@ -8,14 +9,16 @@
 	export let firstInList: boolean = false;
 	export let playing: boolean = false;
 	export let playClicked: (i: number) => void;
-	export let beingScrolled = false;
 	let element;
-	$: if (firstInList && element != null && !beingScrolled) {
+	const debouncedScrollIntoView = debounce(() => {
 		element.scrollIntoView({
 			inline: 'start',
 			block: 'start',
 			behavior: 'smooth'
 		});
+	}, 300);
+	$: if (firstInList && element != null) {
+		debouncedScrollIntoView();
 	}
 </script>
 

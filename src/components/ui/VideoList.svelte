@@ -4,7 +4,6 @@
 	import { flip } from 'svelte/animate';
 	import { quintOut } from 'svelte/easing';
 	import type { VideoLink } from '../../helpers/generateVideoList';
-	import throttle from 'lodash.throttle';
 	export let links: VideoLink[];
 	export let currentVideoIndex: number;
 	export let shuffleToggled: boolean;
@@ -13,17 +12,6 @@
 	let videoListContainer;
 
 	let hovering = false;
-	let beingScrolled = false;
-
-	$: if (shuffleToggled || !shuffleToggled) {
-		if (videoListContainer != null) {
-			videoListContainer.children[1].scrollIntoView({
-				inline: 'start',
-				block: 'start',
-				behavior: 'smooth'
-			});
-		}
-	}
 
 	const drop = (event, target) => {
 		event.dataTransfer.dropEffect = 'move';
@@ -48,15 +36,6 @@
 		const start = i;
 		event.dataTransfer.setData('text/plain', start);
 	};
-
-	const throttledDisableScroll = throttle(() => {
-		beingScrolled = true;
-	}, 50);
-
-	const handleScroll = () => {
-		throttledDisableScroll();
-		beingScrolled = false;
-	};
 </script>
 
 <div class="flex h-[36rem] w-1/4 flex-col items-end">
@@ -70,7 +49,6 @@
 	<div
 		bind:this={videoListContainer}
 		class="flex flex-col items-end overflow-y-scroll"
-		on:scroll={handleScroll}
 	>
 		{#each links as video, index (video.title)}
 			<div
@@ -85,7 +63,6 @@
 				} rounded-md`}
 			>
 				<VideoPreview
-					{beingScrolled}
 					subName={video.subreddit}
 					firstInList={currentVideoIndex + 1 === index}
 					playing={currentVideoIndex === index}
