@@ -4,12 +4,12 @@
 	import { flip } from 'svelte/animate';
 	import { quintOut } from 'svelte/easing';
 	import type { VideoLink } from '../../helpers/generateVideoList';
-
 	export let links: VideoLink[];
 	export let currentVideoIndex: number;
 	export let shuffleToggled: boolean;
 	export let autoplay: boolean;
 	export let setLinkList: (linkList: VideoLink[]) => void;
+	let videoListContainer;
 
 	let hovering = false;
 
@@ -46,7 +46,10 @@
 		<Toggle bind:toggled={shuffleToggled} />
 	</div>
 
-	<div class="flex flex-col items-end overflow-y-scroll">
+	<div
+		bind:this={videoListContainer}
+		class="flex flex-col items-end overflow-y-scroll"
+	>
 		{#each links as video, index (video.title)}
 			<div
 				animate:flip={{ duration: 150, easing: quintOut }}
@@ -61,6 +64,8 @@
 			>
 				<VideoPreview
 					subName={video.subreddit}
+					firstInList={currentVideoIndex + 1 === index}
+					playing={currentVideoIndex === index}
 					{index}
 					playClicked={(index) => {
 						currentVideoIndex = index;
