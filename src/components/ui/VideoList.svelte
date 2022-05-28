@@ -38,7 +38,7 @@
 	};
 </script>
 
-<div class="flex h-[36rem] w-1/4 flex-col items-end">
+<div class="flex h-full w-1/3 flex-col items-end overflow-hidden">
 	<div class="m-3 mr-5 flex space-x-2 align-middle">
 		<h3 class="text-sm font-light text-gray-600">Autoplay</h3>
 		<Toggle bind:toggled={autoplay} />
@@ -48,7 +48,7 @@
 
 	<div
 		bind:this={videoListContainer}
-		class="flex flex-col items-end overflow-y-scroll"
+		class="flex h-[calc(100vh-200px)] w-full flex-col items-end overflow-y-scroll"
 	>
 		{#each links as video, index (video.title)}
 			<div
@@ -60,7 +60,7 @@
 				on:dragenter={() => (hovering = index)}
 				class={`${
 					hovering === index ? 'bg-blue-500' : null
-				} rounded-md`}
+				} w-full rounded-md`}
 			>
 				<VideoPreview
 					subName={video.subreddit}

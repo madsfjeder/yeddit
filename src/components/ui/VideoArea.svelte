@@ -34,10 +34,10 @@
 	};
 </script>
 
-<div class="mt-10 flex h-[26rem] w-full flex-row justify-between">
-	<div class="flex flex-row align-middle">
-		<div class="flex-col space-y-3">
-			<div class="flex flex-row justify-between">
+<div class="mt-10 flex h-full w-full flex-row justify-between">
+	<div class="flex w-2/3 flex-row align-middle">
+		<div class="mr-10 w-full flex-col space-y-3">
+			<div class="flex w-full flex-row justify-between">
 				<button
 					class="mr-4 h-14"
 					on:click={() => {
@@ -79,10 +79,10 @@
 				on:ready={onReady}
 				videoId={currentVideo.id}
 				id={1}
-				class={''}
+				class={'h-[calc(100vh-222px)]'}
 				options={{
-					height: '390',
-					width: '780',
+					height: '100%',
+					width: '100%',
 					playerVars: {
 						autoplay: autoplay ? 1 : 0
 					}
