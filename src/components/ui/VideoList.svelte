@@ -48,7 +48,7 @@
 
 	<div
 		bind:this={videoListContainer}
-		class="flex h-[calc(100vh-200px)] max-h-full w-full flex-col items-end overflow-y-scroll"
+		class="flex h-[calc(100vh-200px)] w-full flex-col items-end overflow-y-scroll"
 	>
 		{#each links as video, index (video.title)}
 			<div

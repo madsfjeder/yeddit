@@ -79,9 +79,9 @@
 				on:ready={onReady}
 				videoId={currentVideo.id}
 				id={1}
-				class={''}
+				class={'h-[calc(100vh-222px)]'}
 				options={{
-					height: '510px',
+					height: '100%',
 					width: '100%',
 					playerVars: {
 						autoplay: autoplay ? 1 : 0

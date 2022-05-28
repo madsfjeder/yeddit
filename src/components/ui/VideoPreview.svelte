@@ -27,9 +27,9 @@
 	on:click={() => playClicked(index)}
 	class={`flex cursor-pointer space-x-2 rounded-md p-2`}
 >
-	<div class="relative flex w-1/3">
+	<div class="relative flex w-1/4">
 		<img
-			class="background-image bg-cover `${firstInList || playing
+			class="background-image w-full bg-cover `${firstInList || playing
 				? 'rounded-md blur-[2px] brightness-50 backdrop-filter'
 				: ''}`"
 			src={thumbnailUrl}
@@ -50,7 +50,7 @@
 		{/if}
 	</div>
 	<div class="w-2/3">
-		<p class="text-sm font-bold">{subName}</p>
-		<p class="text-sm">{title}</p>
+		<p class="text-[0.9vw] font-bold">{subName}</p>
+		<p class="text-[0.9vw]">{title}</p>
 	</div>
 </div>
