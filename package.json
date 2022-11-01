@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "build": "vite build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "^1.0.0-next.531",
     "@testing-library/svelte": "^3.1.1",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.shuffle": "^4.2.7",
@@ -27,10 +27,10 @@
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
     "prettier-plugin-tailwindcss": "^0.1.8",
-    "svelte": "^3.44.0",
-    "svelte-check": "^2.2.6",
-    "svelte-fa": "^2.4.0",
-    "svelte-preprocess": "^4.10.1",
+    "svelte": "^3.52.0",
+    "svelte-check": "^2.9.2",
+    "svelte-fa": "^3.0.3",
+    "svelte-preprocess": "^4.10.7",
     "tailwindcss": "^3.0.23",
     "tslib": "^2.3.1",
     "typescript": "~4.6.2",
@@ -48,6 +48,7 @@
     "lodash.shuffle": "^4.2.0",
     "moment": "^2.29.3",
     "svelte-youtube": "^0.0.2",
+    "vite": "^3.2.2",
     "youtube-player": "^5.5.2"
   }
 }

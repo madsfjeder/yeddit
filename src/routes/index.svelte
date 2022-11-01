@@ -9,9 +9,12 @@
 	import LoadingSpinner from '../components/ui/LoadingSpinner.svelte';
 	import { getToken } from '../helpers/authenticationHandlers';
 	import AutoCompleteResult from '../components/ui/AutoCompleteResult.svelte';
+	import { env } from '$env/dynamic/public';
 
-	const redirectUrl = 'http://localhost:3000/oauth';
-	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=Bt0zJiirFQI3lGtqPM-W5A&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
+	const redirectUrl = env.REDIRECT_URI;
+	const id = env.CLIENT_ID;
+	const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=${id}}&response_type=code&state=2&redirect_uri=${redirectUrl}&duration=permanent&scope=read`;
+
 	let token = undefined;
 	let currentSearchTerm;
 	let autocomplete: Sub[];
@@ -42,6 +45,7 @@
 			keyboardNavigation = false;
 		}
 	};
+
 	let links = [];
 	const handleGenerateList = async () => {
 		links = await generateVideoList(subList);

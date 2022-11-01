@@ -1,4 +1,5 @@
 import { setToken } from '../stores/setToken';
+import { env } from '$env/dynamic/private';
 import moment from 'moment';
 
 export type AuthResponse = {
@@ -7,8 +8,9 @@ export type AuthResponse = {
 	expires_in: number;
 };
 
-const username = 'Bt0zJiirFQI3lGtqPM-W5A';
-const password = '';
+const username = env.REDDIT_USERNAME;
+const password = env.REDDIT_PASSWORD;
+const redirectUri = env.REDIRECT_URI;
 
 export const getToken = async () => {
 	const token = localStorage.getItem('token');
@@ -33,7 +35,7 @@ export const fetchToken = async ({ code }: { code: string }) => {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			Authorization: 'Basic ' + btoa(username + ':' + password)
 		},
-		body: `grant_type=authorization_code&code=${code}&duration=permanent&redirect_uri=http://localhost:3000/oauth`
+		body: `grant_type=authorization_code&code=${code}&duration=permanent&redirect_uri=${redirectUri}`
 	});
 	const jsonResponse: AuthResponse = await res.json();
 	localStorage.setItem('token', jsonResponse.access_token);
